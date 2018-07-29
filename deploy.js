@@ -8,13 +8,21 @@ hs_key = config.hs_key;
 fs = require('fs');
 path = require('path');
 project = path.basename(config.project)
+
 node_ssh = require('node-ssh');
 ssh = new node_ssh();
+
+const dotenv = require('dotenv');
+
+/**
+ * Load environment variables from .env file, where API keys and passwords are configured.
+ */
+dotenv.load({ path: '.env' });
 
 // the method that starts the deployment process
 function main() {
   console.log('Deployment started.');
-  //console.log(process.env);
+  //console.log(process.env.AWS_PROJECTXY_KEY);
   //cmd.run(`mkdir ${project} && cp -r ${config.project}/* ${project}/`);
   sshConnect();
 }
