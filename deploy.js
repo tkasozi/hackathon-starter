@@ -94,6 +94,12 @@ function restartRemoteServices() {
   });
 }
 
+function runApp(){
+  return ssh.execCommand(`cd ${project}-temp && npm start`, {
+    cwd: "/home/ubuntu"
+  });
+}
+
 // connect to the remote server
 function sshConnect() {
   console.log('Connecting to the server...');
@@ -153,11 +159,15 @@ function sshConnect() {
     })
     .then(function() {
       console.log('DEPLOYMENT COMPLETE!');
+      process.exit(0);
+    }).then(function(){
+      console.log("Application is deployed");
+      runApp();
       process.exit(1);
     })
     .catch(e => {
       console.error(e);
-      process.exit(1);
+      process.exit(0);
     });
 }
 
