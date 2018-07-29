@@ -158,12 +158,7 @@ function sshConnect() {
       }
     })
     .then(function() {
-      console.log('DEPLOYMENT COMPLETE!');
-      //process.exit(0);
-    }).then(function(){
-      console.log("Application is deployed");
-      runApp();
-      process.exit(1);
+      return status ? runApp(): process.exit(1);
     })
     .catch(e => {
       console.error(e);
