@@ -13,8 +13,9 @@ ssh = new node_ssh();
 
 // the method that starts the deployment process
 function main() {
-  console.log('Deployment started.', config);
-  cmd.run(`mkdir ${project} && cp -r ${config.project}/* ${project}/`);
+  console.log('Deployment started.');
+  //console.log(process.env);
+  //cmd.run(`mkdir ${project} && cp -r ${config.project}/* ${project}/`);
   sshConnect();
 }
 
@@ -29,7 +30,7 @@ function installPM2() {
 // transfers local project to the remote server
 function transferProjectToRemote(failed, successful) {
   return ssh.putDirectory(
-    `./${project}`,
+    `../${project}`,
     `/home/ubuntu/${project}-temp`,
     {
       recursive: true,
