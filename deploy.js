@@ -87,11 +87,12 @@ function updateRemoteApp() {
 }
 
 // restart mongodb and node services on the remote server
+//2
 function restartRemoteServices() {
   return ssh.execCommand(
     `cd  ${project}-temp && sudo service mongod start && pm2 start app.js 
-    && ./npmInstall.sh && npm start`, {
-      cwd: '/home/ubuntu'
+    && chmod +x  npmInstall.sh  && ./npmInstall.sh && npm start`, {
+      cwd: '/home/ubuntu' 
   });
 }
 // connect to the remote server
