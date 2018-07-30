@@ -90,7 +90,7 @@ function updateRemoteApp() {
 //2
 function restartRemoteServices() {
   return ssh.execCommand(
-    `cd  ${project}-temp && sudo service mongod start && pm2 start app.js 
+    `cd  ${project}-temp && sudo service mongod start && pm2 start app.js \
     && chmod +x  npmInstall.sh  && ./npmInstall.sh && npm start`, {
       cwd: '/home/ubuntu' 
   });
