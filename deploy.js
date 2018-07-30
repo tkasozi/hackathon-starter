@@ -89,17 +89,11 @@ function updateRemoteApp() {
 // restart mongodb and node services on the remote server
 function restartRemoteServices() {
   return ssh.execCommand(
-    `cd  ${project}-temp && sudo service mongod start && pm2 start app.js`, {
+    `cd  ${project}-temp && sudo service mongod start && pm2 start app.js 
+    && ./npmInstall.sh && npm start`, {
       cwd: '/home/ubuntu'
   });
 }
-
-function runApp(){
-  return ssh.execCommand(`cd ${project}-temp && npm start`, {
-    cwd: "/home/ubuntu"
-  });
-}
-
 // connect to the remote server
 function sshConnect() {
   console.log('Connecting to the server...');
@@ -158,7 +152,8 @@ function sshConnect() {
       }
     })
     .then(function() {
-      return status ? runApp(): process.exit(1);
+      console.log("DEPLOYMENT COMPLETE!");
+      process.exit(1);
     })
     .catch(e => {
       console.error(e);
