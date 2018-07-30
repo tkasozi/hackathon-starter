@@ -63,9 +63,9 @@ function transferProjectToRemote(failed, successful) {
 }
 
 // creates a temporary folder on the remote server
-function createRemoteTempFolder(projectName) {
+function createRemoteTempFolder() {
   return ssh.execCommand(
-    `rm -rf ${project}-temp && mkdir ${project}-temp`, {
+    `ls`, {
       cwd: '/home/ubuntu'
   });
 }
@@ -111,11 +111,12 @@ function sshConnect() {
       console.log('Installing PM2...');
       return installPM2();
     })
-    /*.then(function() {
+    .then(function() {
       console.log(`Creating ${project}-temp folder.`);
       return createRemoteTempFolder();
-    })*/
+    })
     .then(function(result) {
+      console.log(result);
       const failed = [];
       const successful = [];
       if (result.stdout) {
@@ -154,7 +155,7 @@ function sshConnect() {
     })
     .then(function() {
       console.log("DEPLOYMENT COMPLETE!");
-      process.exit(0);
+      process.exit(0); 
     })
     .catch(e => {
       console.error(e);
