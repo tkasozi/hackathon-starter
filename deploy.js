@@ -39,7 +39,7 @@ function installPM2() {
 function transferProjectToRemote(failed, successful) {
   return ssh.putDirectory(
     `../${project}`,
-    `/home/ubuntu/${project}-temp`,
+    `/home/ubuntu/${project}`,
     {
       recursive: true,
       concurrency: 1,
@@ -90,8 +90,8 @@ function updateRemoteApp() {
 //2
 function restartRemoteServices() {
   return ssh.execCommand(
-    `cd  ${project}-temp && sudo service mongod start && pm2 start app.js \
-    && chmod +x  npmInstall.sh  && ./npmInstall.sh && npm start`, {
+    `cd  ${project} && sudo service mongod start && pm2 start app.js \
+    && chmod +x  npmInstall.sh  && ./npmInstall.sh`, {
       cwd: '/home/ubuntu' 
   });
 }
@@ -111,10 +111,10 @@ function sshConnect() {
       console.log('Installing PM2...');
       return installPM2();
     })
-    .then(function() {
+    /*.then(function() {
       console.log(`Creating ${project}-temp folder.`);
       return createRemoteTempFolder();
-    })
+    })*/
     .then(function(result) {
       const failed = [];
       const successful = [];
@@ -136,14 +136,14 @@ function sshConnect() {
         return Promise.reject(failed.join(', '));
       }
     })
-    .then(function(status) {
+   /* .then(function(status) {
       if (status) {
         console.log('Updating remote app.');
         return updateRemoteApp();
       } else {
         return Promise.reject(failed.join(', '));
       }
-    })
+    })*/
     .then(function(status) {
       if (status) {
         console.log('Restarting remote services...');
