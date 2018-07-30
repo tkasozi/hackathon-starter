@@ -2,12 +2,12 @@
 //Automation deployment 
 
 let cmd = require('node-cmd');
-let path, node_ssh, ssh, fs, config = require('./config/config'), project,
+let path, node_ssh, ssh, fs, config = require('./config/config'), project;
 host_ = config.host,
 hs_key = config.hs_key;
 fs = require('fs');
 path = require('path');
-project = path.basename(config.project)
+project = path.basename(config.project);
 
 node_ssh = require('node-ssh');
 ssh = new node_ssh();
