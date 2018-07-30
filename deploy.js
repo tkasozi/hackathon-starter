@@ -153,7 +153,7 @@ function sshConnect() {
     })
     .then(function() {
       console.log("DEPLOYMENT COMPLETE!");
-      process.exit(1);
+      process.exit(0);
     })
     .catch(e => {
       console.error(e);
